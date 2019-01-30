@@ -1,0 +1,130 @@
+/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+
+#include "pmi8998.dtsi"
+
+&vendor {
+	ext_5v_boost: ext_5v_boost {
+		status = "disabled";
+		compatible = "regulator-fixed";
+		regulator-name = "ext_5v_boost";
+		//#ifdef VENDOR_EDIT
+		//Fei.Mo@PSW.BSP.Sensor 2018-01-11, Modify for dhall device and motor control
+		gpio = <&pmi8998_gpios 5 GPIO_ACTIVE_HIGH>;
+		//#else
+		//gpio = <&pmi8998_gpios 10 GPIO_ACTIVE_HIGH>;
+		//#endif
+		enable-active-high;
+
+		regulator-enable-ramp-delay = <1600>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&usb2_ext_5v_boost_default>;
+	};
+};
+
+&pmi8998_charger {
+	smb2_vconn: qcom,smb2-vconn {
+		regulator-name = "smb2-vconn";
+	};
+	smb2_vbus: qcom,smb2-vbus {
+		regulator-name = "smb2-vbus";
+	};
+};
+
+&pmi8998_qnovo {
+	pinctrl-names = "default";
+	pinctrl-0 = <&qnovo_fet_ctrl_default>;
+};
+
+&usb0 {
+	extcon = <&pmi8998_pdphy>, <&pmi8998_pdphy>, <&eud>;
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/02/08, sjc Add for USB */
+	dwc3@a600000 {
+		usb-phy = <&qusb_phy0>, <&usb_nop_phy>;
+		maximum-speed = "high-speed";
+	};
+//#endif //VENDOR_EDIT
+};
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/03/02, sjc Add for USB */
+&qusb_phy0 {
+	pinctrl-names = "atest_usb13_suspend", "atest_usb13_active";
+	pinctrl-0 = <&atest_usb13_suspend>;
+	pinctrl-1 = <&atest_usb13_active>;
+//ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/04/16, sjc Add for USB */
+	qcom,qusb-phy-init-seq =
+		/* <value reg_offset> */
+		   <0x23 0x210 /* PWR_CTRL1 */
+		    0x03 0x04  /* PLL_ANALOG_CONTROLS_TWO */
+		    0x7c 0x18c /* PLL_CLOCK_INVERTERS */
+		    0x80 0x2c  /* PLL_CMODE */
+		    0x0a 0x184 /* PLL_LOCK_DELAY */
+		    0x19 0xb4  /* PLL_DIGITAL_TIMERS_TWO */
+		    0x40 0x194 /* PLL_BIAS_CONTROL_1 */
+		    //0x20 0x198 /* PLL_BIAS_CONTROL_2 */
+		    0x1e 0x198 /* PLL_BIAS_CONTROL_2 */
+		    0x21 0x214 /* PWR_CTRL2 */
+		    0x08 0x220 /* IMP_CTRL1 */
+		    0x58 0x224 /* IMP_CTRL2 */
+		    //0x45 0x240 /* TUNE1 */
+		    0x42 0x240 /* TUNE1 */
+		    0x29 0x244 /* TUNE2 */
+		    0xca 0x248 /* TUNE3 */
+		    0x04 0x24c /* TUNE4 */
+		    0x03 0x250 /* TUNE5 */
+		    0x00 0x23c /* CHG_CTRL2 */
+		    0x22 0x210>; /* PWR_CTRL1 */
+//#endif
+//ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/06/17, sjc Add for OTG */
+	qcom,qusb-phy-oppo-host-init-seq =
+		/* <value reg_offset> */
+		   <0x23 0x210 /* PWR_CTRL1 */
+		    0x03 0x04  /* PLL_ANALOG_CONTROLS_TWO */
+		    0x7c 0x18c /* PLL_CLOCK_INVERTERS */
+		    0x80 0x2c  /* PLL_CMODE */
+		    0x0a 0x184 /* PLL_LOCK_DELAY */
+		    0x19 0xb4  /* PLL_DIGITAL_TIMERS_TWO */
+		    0x40 0x194 /* PLL_BIAS_CONTROL_1 */
+		    0x1e 0x198 /* PLL_BIAS_CONTROL_2 */
+		    0x21 0x214 /* PWR_CTRL2 */
+		    0x07 0x220 /* IMP_CTRL1 */
+		    0x58 0x224 /* IMP_CTRL2 */
+		    0x46 0x240 /* TUNE1 */
+		    0x2b 0x244 /* TUNE2 */
+		    0xca 0x248 /* TUNE3 */
+		    0x04 0x24c /* TUNE4 */
+		    0x03 0x250 /* TUNE5 */
+		    0x00 0x23c /* CHG_CTRL2 */
+		    0x22 0x210>; /* PWR_CTRL1 */
+//#endif
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/02/08, sjc Add for USB */
+&usb_qmp_dp_phy {
+	status = "disabled";
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/01/17, sjc Add for charging */
+&pcie0 {
+	status = "disabled";
+};
+//#endif //VENDOR_EDIT
+/*#ifdef VENDOR_EDIT*/
+/*Jinshui.Liu@Camera.Driver, 2018/03/05, add for [oppo camera driver]*/
+&pcie1 {
+	status = "disabled";
+};
+/*#endif*/

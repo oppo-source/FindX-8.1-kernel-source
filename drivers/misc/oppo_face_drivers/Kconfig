@@ -1,0 +1,17 @@
+menuconfig OPPO_3D_FACE
+	bool "OPPO 3d face"
+	depends on SPI_MASTER
+	help
+	  Say Y here to enable OPPO 3d face support
+
+if OPPO_3D_FACE
+
+config OPPO_3D_FACE_QCOM
+       default n
+       tristate "3D FACE base on QCOM"
+
+config OPPO_3D_FACE_MTK
+       default n
+       tristate "3D FACE base on MTK"
+
+endif #OPPO_3D_FACE

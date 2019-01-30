@@ -1,0 +1,35 @@
+# ifdef VENDOR_EDIT 
+# yixue.ge add for config oppo software common soft
+config OPPO_ARCH_FILE
+	bool "for build directory oppo"
+	---help---
+	say Y to buid in
+
+config OPPO_COMMON_SOFT
+      bool "config oppo common software"
+	  select OPPO_ARCH_FILE
+	  help
+		define this config to get project verion from sharemem.
+		Maybe this value is from CDT or dynamic identify by hardware
+		id.
+
+config OPPO_DEVICE_IFNO
+      bool "config oppo devinfo"
+	  select OPPO_ARCH_FILE
+	  help
+		define this config to compile devinfo.c for device register
+		.
+source "drivers/soc/oppo/oppo_project/Kconfig"
+
+source "drivers/soc/oppo/oppo_devinfo/Kconfig"
+
+source "drivers/soc/oppo/oppo_trace/Kconfig"
+source "drivers/soc/oppo/oppo_mdmrst/Kconfig"
+
+#ifdef VENDOR_EDIT
+#//John.Xu@PhoneSw.AudioDriver, 2016/02/22, Add for critical_log
+#source "drivers/soc/oppo/oppo_criticallog/Kconfig"
+#endif /* VENDOR_EDIT */
+
+
+#endif /* VENDOR_EDIT */

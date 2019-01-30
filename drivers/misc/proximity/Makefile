@@ -1,0 +1,1 @@
+obj-y		+= oppo_proximity_power.o

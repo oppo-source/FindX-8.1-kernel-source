@@ -1,0 +1,980 @@
+/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&pmi8998_gpios {
+/*#ifndef VENDOR_EDIT*/
+/*Xinlan.He@Camera.Driver, 2018/03/21, remove [for MX6K powerup]*/
+/*
+	usb2_vbus_boost {
+		usb2_vbus_boost_default: usb2_vbus_boost_default {
+			pins = "gpio2";
+			function = "normal";
+			output-low;
+			power-source = <0>;
+		};
+	};
+*/
+
+	qnovo_fet_ctrl {
+		qnovo_fet_ctrl_default: qnovo_fet_ctrl_default {
+			pins = "gpio6";
+			function = "func1";
+			output-low;
+			input-disable;
+			bias-disable;
+			power-source = <0>;
+			qcom,drive-strength = <1>;
+		};
+	};
+
+	usb2_vbus_det {
+		usb2_vbus_det_default: usb2_vbus_det_default {
+			pins = "gpio8";
+			function = "normal";
+			input-enable;
+			bias-pull-down;
+			power-source = <1>;	/* VPH input supply */
+		};
+	};
+
+	usb2_id_det {
+		usb2_id_det_default: usb2_id_det_default {
+			pins = "gpio9";
+			function = "normal";
+			input-enable;
+			bias-pull-up;
+			power-source = <0>;
+		};
+	};
+
+	usb2_ext_5v_boost {
+		usb2_ext_5v_boost_default: usb2_ext_5v_boost_default {
+			//#ifdef VENDOR_EDIT
+			//Fei.Mo@PSW.BSP.Sensor 2018-01-11, Modify for dhall device and motor control
+			pins = "gpio5";
+			//#else
+			//pins = "gpio10";
+			//#endif
+			function = "normal";
+			output-low;
+			power-source = <0>;
+		};
+	};
+};
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/02/05, sjc Add for charging */
+&qupv3_se9_2uart_sleep {
+	config {
+		input-enable;
+	};
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/01/17, sjc Add for charging */
+&qupv3_se11_i2c_active{
+	mux {
+		pins = "gpio32";
+	};
+	config {
+		pins = "gpio32";
+	};
+};
+
+&qupv3_se11_i2c_sleep{
+	mux {
+		pins = "gpio32";
+	};
+	config {
+		pins = "gpio32";
+	};
+};
+
+&qupv3_se11_spi_active{
+	mux {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+	config {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+};
+
+&qupv3_se11_spi_sleep{
+	mux {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+	config {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+};
+
+&qupv3_se14_spi_active{
+	mux {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+	config {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+};
+
+&qupv3_se14_spi_sleep{
+	mux {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+	config {
+		pins = "gpio32", "gpio33", "gpio34";
+	};
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/03/02, sjc Add for charging */
+&qupv3_se9_i2c_active {
+	mux {
+		pins = "gpio6";
+	};
+	config {
+		pins = "gpio6";
+	};
+};
+
+&qupv3_se9_i2c_sleep {
+	mux {
+		pins = "gpio6";
+	};
+	config {
+		pins = "gpio6";
+	};
+};
+
+&qupv3_se9_spi_active {
+	mux {
+		pins = "gpio4", "gpio5", "gpio6";
+	};
+	config {
+		pins = "gpio4", "gpio5", "gpio6";
+	};
+};
+
+&qupv3_se9_spi_sleep {
+	mux {
+		pins = "gpio4", "gpio5", "gpio6";
+	};
+	config {
+		pins = "gpio4", "gpio5", "gpio6";
+	};
+};
+
+&nfc_enable_active {
+	mux {
+		pins = "gpio62", "gpio116";
+	};
+	config {
+		pins = "gpio62", "gpio116";
+	};
+};
+
+&nfc_enable_suspend {
+	mux {
+		pins = "gpio62", "gpio116";
+	};
+	config {
+		pins = "gpio62", "gpio116";
+	};
+};
+
+&tlmm {
+	/delete-node/ pcie1;
+};
+
+&pm8998_gpios {
+	/delete-node/ camera_rear_dvdd_en;
+/*#ifdef VENDOR_EDIT oujinrong@BSP.Fingerprint.Basic 2018-03-29 add for 3d face ldmp volt*/
+	gpio9_adc {
+		gpio9_adc_default: gpio9_adc_default {
+			pins = "gpio9";
+			function = "normal";
+			bias-high-impedance; /*disable GPIO9 for ADC*/
+		};
+	};
+/*#endif VENDOR_EDIT */
+/*#ifdef VENDOR_EDIT ziqing.guo@BSP.Fingerprint.Basic 2018-03-29 add for 3d face temparature*/
+	gpio11_adc {
+		gpio11_adc_default: gpio11_adc_default {
+			pins = "gpio11";
+			function = "normal";
+			bias-high-impedance; /*disable GPIO11 for ADC*/
+		};
+	};
+/*#endif VENDOR_EDIT */
+	gpio12_adc {
+		gpio12_adc_default: gpio12_adc_default {
+			pins = "gpio12";
+			function = "normal";
+			bias-high-impedance; /*disable GPIO12 for ADC*/
+		};
+	};
+/*#ifdef VENDOR_EDIT ziqing.guo@BSP.Fingerprint.Basic 2018-03-29 add for 3d face temparature*/
+	gpio21_adc {
+		gpio21_adc_default: gpio21_adc_default {
+			pins = "gpio21";
+			function = "normal";
+			bias-high-impedance; /*disable GPIO21 for ADC*/
+		};
+	};
+/*#endif VENDOR_EDIT */
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/05/25, sjc Add for usbtemp */
+	charger {
+		dischg_enable: dischg_enable {
+			pins = "gpio19";
+			function = "normal";
+			power-source = <0>;
+			output-high;
+			input-disable;
+		};
+		dischg_disable: dischg_disable {
+			pins = "gpio19";
+			function = "normal";
+			power-source = <0>;
+			output-low;
+			input-disable;
+		};
+	};
+//#endif //VENDOR_EDIT
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/01/17, sjc Add for charging */
+&tlmm {
+	/delete-node/ pcie0;
+
+	charger: charger {
+		charging_switch1_active: charging_switch1_active {
+			mux {
+				pins = "gpio51";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio51";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+
+		charging_switch1_sleep: charging_switch1_sleep {
+			mux {
+				pins = "gpio51";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio51";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+
+		charging_reset_active: charging_reset_active {
+			mux {
+				pins = "gpio102";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio102";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+
+		charging_reset_sleep: charging_reset_sleep {
+			mux {
+				pins = "gpio102";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio102";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+
+		charging_clock_active: charging_clock_active {
+			mux {
+				pins = "gpio43";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio43";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+
+		charging_clock_sleep: charging_clock_sleep {
+			mux {
+				pins = "gpio43";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio43";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+
+		charging_data_active: charging_data_active {
+			mux {
+				pins = "gpio44";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio44";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+
+		charging_data_sleep: charging_data_sleep {
+			mux {
+				pins = "gpio44";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio44";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+
+		chargerid_switch_active: chargerid_switch_active {
+			mux {
+				pins = "gpio37";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio37";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+
+		chargerid_switch_sleep: chargerid_switch_sleep {
+			mux {
+				pins = "gpio37";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio37";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+
+		chargerid_switch_default: chargerid_switch_default {
+			mux {
+				pins = "gpio37";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio37";
+				drive-strength = <2>;
+				bias-disable; /* NO PULL */
+			};
+		};
+
+		ccdetect_active: ccdetect_active {
+			mux {
+				pins = "gpio31";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio31";
+				drive-strength = <2>;
+				input-enable;
+				//bias-pull-up; /*PULL UP*/
+				bias-disable;
+			};
+		};
+
+		ccdetect_sleep: ccdetect_sleep {
+			mux {
+				pins = "gpio31";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio31";
+				drive-strength = <2>;
+				//output-low;
+				//bias-pull-down; /*PULL DOWN*/
+				input-enable;
+				bias-disable;
+			};
+		};
+
+		ship_sleep: ship_sleep {
+			mux {
+				pins = "gpio12";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio12";
+				drive-strength = <2>;
+				bias-pull-down;
+				output-low;
+			};
+		};
+
+		ship_active: ship_active {
+			mux {
+				pins = "gpio12";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio12";
+				drive-strength = <2>;
+				bias-pull-up;
+				output-high;
+			};
+		};
+
+		shortc_active: shortc_active {
+			mux {
+				pins = "gpio103";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio103";
+				drive-strength = <2>;
+				input-enable;
+				bias-pull-up; /*PULL UP*/
+			};
+		};
+	};
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/03/02, sjc Add for USB */
+&tlmm {
+	atest_usb13_active: atest_usb13_active {
+		mux {
+			pins = "gpio7";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio7";
+			drive-strength = <2>;
+			bias-pull-up;
+			output-high;
+		};
+	};
+
+	atest_usb13_suspend: atest_usb13_suspend {
+		mux {
+			pins = "gpio7";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio7";
+			bias-pull-down;
+			drive-strength = <2>;
+			output-low;
+		};
+	};
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT /* Jianchao.Shi@BSP.CHG.Basic, 2018/04/05, sjc Add for charging */
+&tlmm {
+	qupv3_se10_i2c_pins: qupv3_se10_i2c_pins {
+		qupv3_se10_i2c_pulldown: qupv3_se10_i2c_pulldown {
+			mux {
+				pins = "gpio55", "gpio56";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio55", "gpio56";
+				drive-strength = <2>;
+				bias-pull-down;
+				output-low;
+			};
+		};
+
+		qupv3_se10_i2c_pullup: qupv3_se10_i2c_pullup {
+			mux {
+				pins = "gpio55", "gpio56";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio55", "gpio56";
+				drive-strength = <2>;
+				bias-pull-up;
+				input-enable;
+			};
+		};
+	};
+};
+//#endif //VENDOR_EDIT
+
+//#ifdef VENDOR_EDIT
+/* Xing.Xiong@PSW.BSP.TP 2018-03-07, Add for sub board*/
+&tlmm {
+	hw_sub_gpio_active: hw_sub_gpio_active {
+		/* active state */
+		mux {
+			pins = "gpio24";
+				function = "gpio";
+			};
+		config {
+			pins = "gpio24";
+			drive-strength = <2>; /* 2 MA */
+			bias-pull-up;
+		};
+	};
+
+	hw_sub_gpio_sleep: hw_sub_gpio_sleep {
+		/* sleep state */
+		mux {
+			pins = "gpio24";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio24";
+			drive-strength = <2>; /* 2 MA */
+			bias-pull-down; /* PULL DOWN */
+		};
+	};
+
+	hw_version_active: hw_version_active {
+		/* active state */
+		mux {
+			pins = "gpio116";
+				function = "gpio";
+			};
+		config {
+			pins = "gpio116";
+			drive-strength = <2>; /* 2 MA */
+			bias-pull-up;
+		};
+	};
+
+	hw_version_sleep: hw_version_sleep {
+		/* sleep state */
+		mux {
+			pins = "gpio116";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio116";
+			drive-strength = <2>; /* 2 MA */
+			bias-pull-down; /* PULL DOWN */
+		};
+	};
+};
+//#endif
+
+//#ifdef VENDOR_EDIT
+/* Cong.Dai@PSW.BSP.TP 2018-02-08 add for tp int and reset pin*/
+&tlmm {
+	pmx_ts_int_active {
+		ts_int_active: ts_int_active {
+			mux {
+				pins = "gpio125";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio125";
+				drive-strength = <8>;
+				input-enable;
+				bias-disable;
+			};
+		};
+	};
+
+	pmx_ts_reset_active {
+		ts_reset_active: ts_reset_active {
+			mux {
+				pins = "gpio99";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio99";
+				drive-strength = <8>;
+				bias-disable;
+				output-low;
+			};
+		};
+	};
+
+	pmx_ts_1v8_active {
+		ts_1v8_active: ts_1v8_active {
+			mux {
+				pins = "gpio32";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio32";
+				drive-strength = <8>;
+				bias-disable;
+			};
+		};
+	};
+};
+//#endif
+
+/*ifdef VENDOR_EDIT*/
+//Tong.han@Bsp.Group.Tp, 2018-2-27, Added for vol down
+&pm8998_gpios {
+	key_vol_down {
+		key_vol_down_default: key_vol_down_default {
+			pins = "gpio5";
+			function = "normal";
+			input-enable;
+			bias-pull-up;
+			power-source = <0>;
+		};
+	};
+};
+/*endif*/
+
+/* #ifdef VENDOR_EDIT */
+/* Le.Li@PSW.MM.AudioDriver.HeadsetDet.1272920, 2018/02/28, Add USB C switch gpio en */
+&tlmm {
+	wcd_usbc_switch_en1 {
+		wcd_usbc_switch_en1_idle: wcd_usbc_ana_en1_idle {
+			mux {
+				pins = "gpio104";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio104";
+				drive-strength = <2>;
+				bias-pull-down;
+				output-low;
+			};
+		};
+
+		wcd_usbc_switch_en1_active: wcd_usbc_ana_en1_active {
+			mux {
+				pins = "gpio104";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio104";
+				drive-strength = <2>;
+				bias-pull-up;
+				output-high;
+			};
+		};
+	};
+};
+/* #endif VENDOR_EDIT */
+
+//#ifdef VENDOR_EDIT
+/*jie.hu@PSW.MM.Display.LCD.Stability,2018/1/6,add for lcd bringup*/
+&tlmm {
+	mdss_vci_pin_active: mdss_vci_pin_active {
+		mux {
+			pins = "gpio26";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio26";
+			drive-strength = <2>; /* 2 mA */
+			bias-pull-up;
+		};
+	};
+
+	mdss_vci_pin_suspend: mdss_vci_pin_suspend {
+		mux {
+			pins = "gpio26";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio26";
+			drive-strength = <2>; /* 2 mA */
+			bias-disable;
+		};
+	};
+};
+//#endif /*VENDOR_EDIT*/
+
+/*#ifdef VENDOR_EDIT*/
+/*Jinshui.Liu@Camera.Driver, 2018/01/17, add for [oppo camera driver]*/
+&tlmm {
+	/delete-node/ pcie1;
+	/delete-node/ qupv3_se2_i2c_pins;
+	/delete-node/ qupv3_se2_spi_pins;
+	/delete-node/ cam_sensor_rear_vana;
+	/delete-node/ sec_aux_pcm_din;
+	/delete-node/ sec_mi2s_sd0;
+	/delete-node/ qupv3_se15_i2c_pins;
+	/delete-node/ qupv3_se15_spi_pins;
+	/delete-node/ qupv3_se0_spi_pins;
+	/delete-node/ qupv3_se0_spi_sleep;
+	/delete-node/ pcie0_clkreq_default;
+
+	cam_res_mgr_active: cam_res_mgr_active {
+		mux {
+			pins = "gpio122";
+		};
+
+		config {
+			pins = "gpio122";
+		};
+	};
+
+	cam_sensor_rear_vana: cam_sensor_rear_vana {
+		/*  AVDD LDO */
+		mux {
+			pins = "gpio27";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio27";
+			bias-disable; /* No PULL */
+			drive-strength = <2>; /* 2 MA */
+		};
+	};
+
+	cam_res_mgr_suspend: cam_res_mgr_suspend {
+		mux {
+			pins = "gpio122";
+		};
+
+		config {
+			pins = "gpio122";
+		};
+	};
+
+	cam_sensor_rear_active: cam_sensor_rear_active {
+		mux {
+			pins = "gpio28","gpio8";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio28","gpio8";
+			bias-disable; /* No PULL */
+			drive-strength = <2>; /* 2 MA */
+		};
+	};
+
+	cam_sensor_rear_suspend: cam_sensor_rear_suspend {
+		mux {
+			pins = "gpio28","gpio8";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio28","gpio8";
+			bias-pull-down; /* PULL DOWN */
+			drive-strength = <2>; /* 2 MA */
+			output-low;
+		};
+	};
+
+	cam_sensor_front_active: cam_sensor_front_active {
+		mux {
+			pins = "gpio9","gpio117";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio9","gpio117";
+			bias-disable; /* No PULL */
+			drive-strength = <2>; /* 2 MA */
+		};
+	};
+
+	cam_sensor_front_suspend: cam_sensor_front_suspend {
+		mux {
+			pins = "gpio9","gpio117";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio9","gpio117";
+			bias-pull-down; /* PULL DOWN */
+			drive-strength = <2>; /* 2 MA */
+			output-low;
+		};
+	};
+
+	cam_sensor_rear2_active: cam_sensor_rear2_active {
+		mux {
+			pins = "gpio23","gpio82","gpio79";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio23","gpio82","gpio79";
+			bias-disable; /* No PULL */
+			drive-strength = <2>; /* 2 MA */
+		};
+	};
+
+	cam_sensor_rear2_suspend: cam_sensor_rear2_suspend {
+		mux {
+			pins = "gpio23","gpio82","gpio79";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio23","gpio82","gpio79";
+			bias-pull-down; /* PULL DOWN */
+			drive-strength = <2>; /* 2 MA */
+			output-low;
+		};
+	};
+};
+/*#endif*/
+
+//#ifdef VENDOR_EDIT
+//Fei.Mo@PSW.BSP.Sensor 2018-03-24, Add for motor direction switch
+&tlmm {
+	dir_switch_gpio_input_high: dir_switch_gpio_input_high {
+		mux {
+			pins = "gpio129";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio129";
+			drive-strength = <2>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+	dir_switch_gpio_input_low: dir_switch_gpio_input_low {
+		mux {
+			pins = "gpio129";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio129";
+			drive-strength = <2>;
+			input-enable;
+			bias-pull-down;
+		};
+	};
+	hall_power_up: hall_power_up {
+		mux {
+			pins = "gpio21";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio21";
+			drive-strength = <2>;
+			output-high;
+			bias-pull-down;
+		};
+	};
+	hall_power_down: hall_power_down {
+		mux {
+			pins = "gpio21";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio21";
+			drive-strength = <2>;
+			output-low;
+			bias-pull-down;
+		};
+	};
+	free_fall_input: free_fall_input {
+		mux {
+			pins = "gpio120";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio120";
+			drive-strength = <2>;
+			input-enable;
+			bias-disable; //No Pull
+		};
+	};
+	hall0_interrupt_input: hall0_interrupt_input {
+		mux {
+			pins = "gpio124";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio124";
+			drive-strength = <2>;
+			input-enable;
+			bias-disable; //No Pull
+		};
+	};
+	hall1_interrupt_input: hall1_interrupt_input {
+		mux {
+			pins = "gpio92";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio92";
+			drive-strength = <2>;
+			input-enable;
+			bias-disable; //No Pull
+		};
+	};
+	power_gpio_high: power_gpio_high {
+		mux {
+			pins = "gpio63";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio63";
+			drive-strength = <2>;
+			output-high;
+			bias-disable; //No Pull
+		};
+	};
+	power_gpio_low: power_gpio_low {
+		mux {
+			pins = "gpio63";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio63";
+			drive-strength = <2>;
+			output-low;
+			bias-disable; //No Pull
+		};
+	};
+};
+//#endif

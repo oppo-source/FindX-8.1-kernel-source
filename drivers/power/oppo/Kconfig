@@ -1,0 +1,33 @@
+menuconfig OPPO_CHARGER
+	bool "OPPO charging system"
+	depends on I2C
+	select REGMAP_I2C
+	help
+	  Say Y here to enable OPPO charging system support
+
+if OPPO_CHARGER
+config OPPO_CHARGER_MTK
+	bool "OPPO charger on MTK"
+	help
+	  Say Y here to declare charging system is on MTK
+	  
+config OPPO_SHORT_C_BATT_CHECK
+	bool "OPPO batt short "
+	help
+	  Say Y here to declare OPPO batt short	  
+
+config OPPO_STANDARD_BATTERY_CHECK_ADC
+	bool "OPPO Official Standard Battery check by ADC"
+	help
+	  Say Y here to support Official Standard Battery check by ADC
+
+config OPPO_SHORT_HW_CHECK
+	bool "OPPO batt HW SHORT "
+	help
+	  Say Y here to declare charging system is on MTK
+
+config OPPO_SHORT_USERSPACE
+	bool "OPPO batt userspace"
+	help
+	  Say Y to include support
+endif #OPPO_CHARGER

@@ -1,0 +1,4 @@
+config OPPO_HYPNUS
+bool "config oppo hypnus feature"
+help
+    This selects hypnus driver

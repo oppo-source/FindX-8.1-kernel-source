@@ -1,0 +1,29 @@
+config TOUCHPANEL_MTK_PLATFORM
+	bool "OPPO platform tp module used"
+	help
+	  Say Y here if you have mtk-platform.
+
+config TOUCHPANEL_NEW_SET_IRQ_WAKE
+	bool "OPPO platform tp module used"
+	help
+	  Say Y here if call enable_irq_wake, can not call disable_irq_nosync
+
+config TOUCHPANEL_OPPO
+	bool "OPPO tp module"
+	help
+	  Say Y here if you have touchscreen module.
+
+config TOUCHPANEL_MULTI_NOFLASH
+	bool "Multiple noflash TPs using"
+	help
+	  Say Y here if you have multiple noflash touchscreen.
+
+config TOUCHPANEL_SAMSUNG
+#	default y
+	bool "TP samsung IC enable or not for OPPO"
+	---help---
+	say Y to enable driver for Touchpanel using samsung IC
+
+if TOUCHPANEL_SAMSUNG
+source "drivers/input/touchscreen/oppo_touchscreen/Samsung/Kconfig"
+endif
